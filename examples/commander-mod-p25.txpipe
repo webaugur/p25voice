@@ -1,0 +1,20 @@
+#!/bin/bash
+# P25 Phase 1 for a Hamspot Commander TX pipe.
+#
+# stdin and stdout are 48 kHz mono signed 16-bit little-endian. p25voice
+# reads the microphone audio and writes C4FM baseband for the transmitter.
+# Commander appends a UDP port when the pipe command is a single script
+# path. This modulator does not use that port.
+#
+# The Link Control baked into an LDU1 with no --tg is talkgroup 0x5555 and
+# source 0xAAAAAA. NAC defaults to 0x293. Pass flags through by editing
+# the exec line, for example: exec p25voice --nac 0x293 --tg 0x0001
+
+set -euo pipefail
+
+if ! command -v p25voice >/dev/null 2>&1; then
+    echo "commander-mod-p25: p25voice is not on PATH" >&2
+    exit 1
+fi
+
+exec p25voice

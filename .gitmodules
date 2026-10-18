@@ -1,0 +1,3 @@
+[submodule "third_party/imbe_vocoder"]
+	path = third_party/imbe_vocoder
+	url = https://github.com/balr0g/imbe_vocoder.git
