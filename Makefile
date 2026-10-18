@@ -7,7 +7,10 @@ CPPFLAGS += -Ithird_party/imbe_vocoder/src/lib -Isrc
 VOCODER := $(wildcard third_party/imbe_vocoder/src/lib/*.cc)
 SRCS := src/main.cc src/ldu.cc $(VOCODER)
 
-.PHONY: all clean test
+PREFIX ?= $(HOME)/.local
+MODEMS ?= $(HOME)/.local/share/hamspot-commander/modems
+
+.PHONY: all clean test install
 
 all: p25voice
 
@@ -16,6 +19,12 @@ p25voice: $(SRCS)
 
 test: p25voice
 	./p25voice --self-test
+
+install: p25voice
+	install -d -m 755 "$(PREFIX)/bin" "$(MODEMS)"
+	install -m 755 p25voice "$(PREFIX)/bin/p25voice"
+	install -m 755 examples/commander-mod-p25.txpipe "$(MODEMS)/commander-mod-p25.txpipe"
+	ln -sfn "$(MODEMS)/commander-mod-p25.txpipe" "$(PREFIX)/bin/commander-mod-p25.txpipe"
 
 clean:
 	rm -f p25voice

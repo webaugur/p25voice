@@ -23,7 +23,15 @@ make test
 
 `make test` checks that the first 24 symbols are the `dsd-fme` P25 Phase 1 frame sync (`111113113311333313133333`).
 
-`examples/commander-mod-p25.txpipe` is the matching Hamspot Commander TX pipe script. It expects `p25voice` on `PATH`. Copy that file into the Commander `modems/` directory.
+## Install
+
+```
+make install
+```
+
+This copies `p25voice` to `~/.local/bin` and `examples/commander-mod-p25.txpipe` to `~/.local/share/hamspot-commander/modems/`, then links that script onto `PATH`. `PREFIX` and `MODEMS` override those directories. Hamspot Commander finds the script in that modems directory. Its own installer leaves this program out unless that machine opts in.
+
+`examples/commander-mod-p25.txpipe` is the matching Hamspot Commander TX pipe script. It expects `p25voice` on `PATH`.
 
 ## Patent notice
 
